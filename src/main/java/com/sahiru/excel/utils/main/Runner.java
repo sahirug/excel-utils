@@ -1,5 +1,7 @@
 package com.sahiru.excel.utils.main;
 
+import com.sahiru.excel.utils.charts.ExcelChart;
+import com.sahiru.excel.utils.data.SampleDataSet;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -58,6 +60,14 @@ public class Runner {
 
     public static void main(String[] args) throws IOException, InvalidFormatException {
         Runner r = new Runner();
-        r.loadExcel();
+        r.drawChart();
+    }
+
+    public void drawChart() throws IOException, InvalidFormatException {
+        File file = new File(getClass().getClassLoader().getResource("finalExcelMetricTemplate.xlsx").getFile());
+        System.out.println(SampleDataSet.SAMPLE_DATA.toString());
+        ExcelChart chart = new ExcelChart(file);
+        chart = chart.drawChart(SampleDataSet.SAMPLE_DATA, 7);
+        chart.writeToFile();
     }
 }
